@@ -80,7 +80,7 @@ const useLoginFormState = ({ navigation }) => {
   }
 
   if (isPasswordValid == true && isUsernameValid == true && submit == true) {
-    if (username == "admin" && password == "123456") {
+    if (username == "micro" && password == "123456") {
       setSubmit(false);
       storeData("username", username);
       storeData("password", password);

@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
   },
   search: {
     height: 130,
-    paddingLeft: 20,
+    paddingLeft: DEVICE_WIDTH / 30,
     position: "relative",
     marginTop: 15,
   },

@@ -3,13 +3,8 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Image,
-  Dimensions,
-  FlatList,
-  TouchableHighlight,
-  ScrollView,
-  Alert,
+  Dimensions
 } from "react-native";
 
 import { LinearGradient } from "expo-linear-gradient";
@@ -78,6 +73,18 @@ export default function Weather() {
           });
     }
 
+    const trimWords = (str, numWords, more = "...") => {
+      var countWords = str;
+      countWords = countWords.replace(/(^\s*)|(\s*$)/gi, "");
+      countWords = countWords.replace(/[ ]{2,}/gi, " ");
+      countWords = countWords.replace(/\n /, "\n");
+      if (countWords.split(" ").length > numWords) {
+        str = str.split(" ").splice(0, numWords).join(" ");
+        str += more;
+      }
+      return str;
+    };
+    
     return (
       <View style={styles.weatherForecast}>
         <View style={[styles.title, { paddingLeft: 0 }]}>
@@ -105,12 +112,15 @@ export default function Weather() {
               source={{ uri: "https:" + weather.condition.icon }}
               style={styles.imageWeather}
             />
-            <Text style={styles.statusWeather}>{weather.condition.text}</Text>
+            <Text style={styles.statusWeather}>
+              {trimWords(weather.condition.text, 2)}
+            </Text>
           </View>
         </LinearGradient>
       </View>
     );
 }
+const DEVICE_WIDTH = Dimensions.get("window").width;
 const styles = StyleSheet.create({
   titleContent: {
     fontSize: 20,
@@ -118,7 +128,7 @@ const styles = StyleSheet.create({
   },
   title: {
     flexDirection: "row",
-    paddingLeft: 20,
+    paddingLeft: DEVICE_WIDTH / 30,
   },
   titleIcon: {
     width: 25,
@@ -128,7 +138,7 @@ const styles = StyleSheet.create({
   weatherForecast: {
     flex: 4,
     marginTop: 30,
-    paddingHorizontal: 20,
+    paddingHorizontal: DEVICE_WIDTH / 30,
     marginBottom: 30,
   },
   layoutWeather: {
@@ -169,7 +179,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "flex-end",
     justifyContent: "center",
-    paddingRight: 20,
+    paddingRight: DEVICE_WIDTH / 30,
     position: "relative",
   },
   imageWeather: {

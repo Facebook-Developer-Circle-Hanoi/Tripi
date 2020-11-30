@@ -1,22 +1,16 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, Text, TouchableOpacity} from 'react-native';
 import THEME from "../Theme/Color";
 
-class Button extends Component {
-    constructor(props) {
-        super(props)
-    }
-
-    render() {
-        return (
-          <TouchableOpacity
-            style={[styles.button, styles.shadow]}
-            onPress={this.props.onPress}
-          >
-            <Text style={styles.textButton}>View Deal</Text>
-          </TouchableOpacity>
-        );
-    }
+export default function Button(props) {
+  return (
+    <TouchableOpacity
+      style={[styles.button, styles.shadow]}
+      onPress={props.onPress}
+    >
+      <Text style={styles.textButton}>{props.text}</Text>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -41,5 +35,3 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
 });
-
-export default Button;

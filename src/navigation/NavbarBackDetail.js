@@ -9,11 +9,11 @@ import {
 } from "react-native";
 
 export default function Navbar(props) {
-  var title_search = ""
-  if (props.name != 'Review du lịch có tâm') {
-    var title_search = "Kết quả tìm kiếm cho: ";
+  var name = ""
+  if (props.name != 'Chi tiết bài viết') {
+    var name = "Khách sạn " + props.name;
   } else {
-    var title_search = "";
+    var name = props.name;
   }
   return (
     <View style={{ marginTop: 45, zIndex: 2 }}>
@@ -30,8 +30,7 @@ export default function Navbar(props) {
             />
           </TouchableHighlight>
           <Text style={styles.welcome}>
-            {title_search}
-            <Text style={styles.name}>{props.name}</Text>
+            <Text style={styles.name}>{name}</Text>
           </Text>
         </View>
       </View>
@@ -76,9 +75,10 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: DEVICE_WIDTH / 24,
-    marginLeft: -30
+    marginLeft: -30,
   },
   name: {
     fontWeight: "600",
+    textTransform: "capitalize",
   },
 });

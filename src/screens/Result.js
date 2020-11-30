@@ -13,11 +13,10 @@ export default function Result(props) {
     setLoading(true);
     var hi = pageNumber;
     hi++;
-    fetch(`http://52.186.125.226/search?page=${pageNumber}&key=${keyword}`)
+    fetch(`http://40.74.91.212/read_hotel.php?page=${pageNumber}&key=${keyword}`)
       .then(async (response) => {
         const data = await response.json();
-        setArticles(articles.concat(data));
-        console.log("hi " + pageNumber);
+        setArticles(articles.concat(data.reviews[0]));
         setPageNumber(hi);
       })
       .catch((err) => {
@@ -61,10 +60,6 @@ export default function Result(props) {
     <View style={{ backgroundColor: "#fff", paddingBottom: 100 }}>
       <NavbarBack
         name={keyword}
-        avatar={{
-          uri:
-            "https://freesharevn.com/wp-content/uploads/2019/04/anh-girl-xinh-de-thuong-1.jpg",
-        }}
         onPress={() => {
           props.navigation.goBack("Home");
         }}
@@ -75,12 +70,13 @@ export default function Result(props) {
         data={articles}
         keyExtractor={(item) => item.id}
         onEndReached={() => fetch_data(keyword)}
-        // onEndReachedThreshold={1}
         ListFooterComponent={
           <ActivityIndicator size="large" loading={loading} />
         }
         renderItem={({ item }) => {
-          return <Articles data={item}></Articles>;
+          return (
+            <Articles navigation={props.navigation} data={item}></Articles>
+          );
         }}
       ></FlatList>
     </View>
